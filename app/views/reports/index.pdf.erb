@@ -1,0 +1,126 @@
+<style>
+body {
+  font-size: 16px;
+  font-family: Roboto;
+}
+.text-right {
+  text-align: right;
+}
+.logo-upload img {
+  border-radius: 50%;
+  border: solid 1px #dadada;
+}
+.centered {
+  text-align: center;
+}
+.bill-to {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: #9b9b9b;
+  margin-bottom: 5px;
+}
+.total-invoice-row {
+  color: #000;
+  height: 57px;
+  opacity: 0.64;
+  background-color: #cdf0ff;
+  font-size: 30px;
+  padding: 0 6px;
+}
+.detail-header {
+  background-color: rgba(217, 227, 239, 0.4);
+  font-size: 22px;
+  line-height: 1;
+  color: #1f424d;
+  height: 44px;
+  padding: 0 6px;
+}
+.separator {
+  height: 1px;
+  border: solid 1px #d9e4ef;
+  margin-top: 53px;
+  margin-bottom: 30px;
+}
+.top-table {
+  margin-top: 51px; 
+}
+.invoice-created-at {
+  margin-bottom: 18px;
+}
+.description-row {
+  margin-top: 28px;
+}
+.note-text {
+  display: block;
+  width: 450px;
+  margin: 40px auto 50px auto;
+  text-align: center;
+}
+.image-name {
+  float: left;
+  vertical-align: baseline;
+  height: 100%;
+  margin-left: 13px;
+  margin-top: 14px;
+}
+.document-detail {
+  margin-top: 8px;
+  float: left;
+  font-size: 13px;
+}
+.table-container {
+  overflow: visible !important;
+}
+thead, tfoot { display: table-row-group }
+</style>
+<div class="container">
+  <div class="center-block">
+  <h2 class="centered">Tickets closed from <%= @from.to_s(:m_d_y) %> to <%= @to.to_s(:m_d_y) %><%= @user.support_representative? ? " by #{@user.name}" : "" %></h2>
+    <div class="row">
+      <div class="col-md-12 separator"></div>
+    </div>
+    <div class='table-container'>
+      <table class="table borderless client-fields" width="100%">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Reported By</th>
+            <% if @user.admin? %>
+              <th>Assigned To</th>
+            <% end %>
+            <th>Reported On</th>
+            <th>Closed At</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @tickets.each do |ticket| %>
+          <tr>
+            <td>
+              <%= ticket.title %>
+            </td>
+            <td>
+              <%= ticket.description %>
+            </td>
+            <td>
+              <%= ticket.owner.name %>
+            </td>
+            <% if @user.admin? %>
+              <td>
+                <%= ticket.assigned_to.present? ? ticket.assigned_to.name : 'N/A' %>
+              </td>
+            <% end %>
+            <td class="invoice-created-at">
+              <%= ticket.created_at.to_s(:m_d_y) %>
+            </td>
+            <td class="invoice-created-at">
+              <%= ticket.closed_at.to_s(:m_d_y) %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

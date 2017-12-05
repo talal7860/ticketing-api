@@ -1,0 +1,2 @@
+class CustomerSerializer < UserSerializer
+end

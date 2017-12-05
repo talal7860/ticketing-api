@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title %></title>
+  </head>
+  <body class='pdf' style="padding-left: 0;" onload="number_pages()">
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+

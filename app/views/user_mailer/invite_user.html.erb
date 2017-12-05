@@ -1,0 +1,2 @@
+Dear <%= @user.email %>
+You have been invited to join customer support portal. Please click <%= link_to "here", "#{ENV.fetch('APP_URL')}/invitation/accept/#{@user.invitation_token}" %> to accept the invitation.

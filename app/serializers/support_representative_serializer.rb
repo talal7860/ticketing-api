@@ -1,0 +1,3 @@
+class SupportRepresentativeSerializer < UserSerializer
+end
+
